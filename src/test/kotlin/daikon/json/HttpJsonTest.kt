@@ -1,4 +1,4 @@
-package daikon.freemarker
+package daikon.json
 
 import daikon.HttpServer
 import json
