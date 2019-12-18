@@ -1,10 +1,8 @@
+import com.google.gson.Gson
 import daikon.Response
-import kotlinx.serialization.*
-import kotlinx.serialization.json.*
 import org.eclipse.jetty.http.MimeTypes
 
-@UseExperimental(ImplicitReflectionSerializer::class)
-inline fun <reified T: Any> Response.json(value: T) {
+fun Response.json(value: Any) {
     this.type(MimeTypes.Type.APPLICATION_JSON_UTF_8.asString())
-    this.write(Json.stringify(value))
+    this.write(Gson().toJson(value))
 }

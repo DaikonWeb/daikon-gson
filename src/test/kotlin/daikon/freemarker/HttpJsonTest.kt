@@ -4,7 +4,6 @@ import daikon.HttpServer
 import json
 import khttp.get
 import khttp.post
-import kotlinx.serialization.Serializable
 import org.assertj.core.api.Assertions.assertThat
 import org.eclipse.jetty.http.MimeTypes.Type.APPLICATION_JSON_UTF_8
 import org.junit.jupiter.api.Test
@@ -33,6 +32,5 @@ class HttpJsonTest {
                 }
     }
 
-    @Serializable
     data class Result(val message: String, val code: String)
 }
