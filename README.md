@@ -1,15 +1,15 @@
-# Daikon Json
+# Daikon Gson
 
 ![Daikon](./logo.svg)
 
-Daikon Json  is a library that add to Daikon the ability to handle json requests and responses.
+Daikon Gson is a library that add to Daikon the ability to handle Json requests and responses.
 
 The main goals are:
-* Help in rendering a json in the response
-* Help in using a json request
+* Help in rendering an object as Json in the response
+* Help in parsing a Json request to an object
 
-## How to add Daikon Json to your project
-[![](https://jitpack.io/v/DaikonWeb/daikon-json.svg)](https://jitpack.io/#DaikonWeb/daikon-json)
+## How to add Daikon Gson to your project
+[![](https://jitpack.io/v/DaikonWeb/daikon-gson.svg)](https://jitpack.io/#DaikonWeb/daikon-gson)
 
 ### Gradle
 - Add JitPack in your root build.gradle at the end of repositories:
@@ -21,7 +21,7 @@ repositories {
 ```
 - Add the dependency
 ```
-implementation 'com.github.DaikonWeb:daikon-json:0.0.1'
+implementation 'com.github.DaikonWeb:daikon-gson:0.6.1'
 ```
 
 ### Maven
@@ -38,8 +38,8 @@ implementation 'com.github.DaikonWeb:daikon-json:0.0.1'
 ```
 <dependency>
     <groupId>com.github.DaikonWeb</groupId>
-    <artifactId>daikon-json</artifactId>
-    <version>0.0.1</version>
+    <artifactId>daikon-gson</artifactId>
+    <version>0.6.1</version>
 </dependency>
 ```
 
@@ -59,6 +59,7 @@ HttpServer()
 ## Resources
 * Documentation: https://daikonweb.github.io
 * Examples: https://github.com/DaikonWeb/daikon-examples
+* Gson project: https://github.com/google/gson
 
 ## Authors
 

@@ -1,3 +1,5 @@
+package daikon.gson
+
 import com.google.gson.Gson
 import daikon.Request
 
