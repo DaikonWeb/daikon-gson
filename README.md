@@ -21,7 +21,7 @@ repositories {
 ```
 - Add the dependency
 ```
-implementation 'com.github.DaikonWeb:daikon-gson:0.6.3'
+implementation 'com.github.DaikonWeb:daikon-gson:0.6.4'
 ```
 
 ### Maven
@@ -39,7 +39,7 @@ implementation 'com.github.DaikonWeb:daikon-gson:0.6.3'
 <dependency>
     <groupId>com.github.DaikonWeb</groupId>
     <artifactId>daikon-gson</artifactId>
-    <version>0.6.3</version>
+    <version>0.6.4</version>
 </dependency>
 ```
 
@@ -55,6 +55,23 @@ HttpServer()
         assertThat(response.headers["Content-Type"]).isEqualTo(APPLICATION_JSON_UTF_8.asString())
     }
 ```
+
+### Custom Serializer and Deserializer
+   ```
+   data class Appointment(val message: String, val date: LocalDate)
+   
+   HttpServer()
+        .post("/") { req, res ->
+            val dateDeserializer = Deserializer(LocalDate::class) { json: JsonElement, _, _ -> parse(json.asString) }
+            val dateSerializer = Serializer(LocalDate::class) { date: LocalDate, _, _ -> JsonPrimitive(date.format(ofPattern("dd/MM/yyyy"))) }
+
+            res.json(req.json<Appointment>(dateDeserializer), dateSerializer)
+        }
+        .start().use {
+            val response = post(url = "http://localhost:4545/", data = """{"message":"Eat a Daikon","date":"2020-01-31"}""")
+            assertThat(response.text).isEqualTo("""{"message":"Eat a Daikon","date":"31/01/2020"}""")
+        }
+   ```
 
 ## Resources
 * Documentation: https://daikonweb.github.io
