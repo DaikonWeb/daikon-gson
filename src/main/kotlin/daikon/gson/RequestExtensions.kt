@@ -1,7 +1,7 @@
 package daikon.gson
 
 import com.google.gson.GsonBuilder
-import daikon.Request
+import daikon.core.Request
 
 inline fun <reified T : Any> Request.json(vararg deserializers: Deserializer<*>): T {
     return GsonBuilder()
