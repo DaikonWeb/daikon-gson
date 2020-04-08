@@ -4,10 +4,10 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonPrimitive
 import daikon.HttpServer
 import daikon.gson.Suit.*
-import topinambur.http
 import org.assertj.core.api.Assertions.assertThat
 import org.eclipse.jetty.http.MimeTypes.Type.APPLICATION_JSON_UTF_8
 import org.junit.jupiter.api.Test
+import topinambur.http
 import java.time.LocalDate
 import java.time.LocalDate.parse
 import java.time.format.DateTimeFormatter.ofPattern
