@@ -4,8 +4,7 @@ import com.google.gson.JsonElement
 import com.google.gson.JsonPrimitive
 import daikon.HttpServer
 import daikon.gson.Suit.*
-import khttp.get
-import khttp.post
+import topinambur.http
 import org.assertj.core.api.Assertions.assertThat
 import org.eclipse.jetty.http.MimeTypes.Type.APPLICATION_JSON_UTF_8
 import org.junit.jupiter.api.Test
@@ -26,9 +25,9 @@ class HttpJsonTest {
         HttpServer()
             .get("/") { _, res -> res.json(hand) }
             .start().use {
-                val response = get("http://localhost:4545/")
-                assertThat(response.headers["Content-Type"]).isEqualTo(APPLICATION_JSON_UTF_8.asString())
-                assertThat(response.text).isEqualTo(expected)
+                val response = "http://localhost:4545/".http.get()
+                assertThat(response.header("Content-Type")).isEqualTo(APPLICATION_JSON_UTF_8.asString())
+                assertThat(response.body).isEqualTo(expected)
             }
     }
 
@@ -37,8 +36,8 @@ class HttpJsonTest {
         HttpServer()
                 .post("/") { req, res -> res.json(req.json<BlackjackHand>()) }
                 .start().use {
-                    val response = post(url = "http://localhost:4545/", data = """{"hiddenCard":{"rank":"4","suit":"CLUBS"},"visibleCards":[{"rank":"1","suit":"DIAMONDS"},{"rank":"7","suit":"HEARTS"}]}""")
-                    assertThat(response.text).isEqualTo("""{"hiddenCard":{"rank":"4","suit":"CLUBS"},"visibleCards":[{"rank":"1","suit":"DIAMONDS"},{"rank":"7","suit":"HEARTS"}]}""")
+                    val response = "http://localhost:4545/".http.post(body = """{"hiddenCard":{"rank":"4","suit":"CLUBS"},"visibleCards":[{"rank":"1","suit":"DIAMONDS"},{"rank":"7","suit":"HEARTS"}]}""")
+                    assertThat(response.body).isEqualTo("""{"hiddenCard":{"rank":"4","suit":"CLUBS"},"visibleCards":[{"rank":"1","suit":"DIAMONDS"},{"rank":"7","suit":"HEARTS"}]}""")
                 }
     }
 
@@ -52,8 +51,8 @@ class HttpJsonTest {
                     res.json(req.json<Appointment>(dateDeserializer), dateSerializer)
                 }
                 .start().use {
-                    val response = post(url = "http://localhost:4545/", data = """{"message":"Eat a Daikon","date":"2020-01-31"}""")
-                    assertThat(response.text).isEqualTo("""{"message":"Eat a Daikon","date":"31/01/2020"}""")
+                    val response =  "http://localhost:4545/".http.post(body = """{"message":"Eat a Daikon","date":"2020-01-31"}""")
+                    assertThat(response.body).isEqualTo("""{"message":"Eat a Daikon","date":"31/01/2020"}""")
                 }
     }
 }
