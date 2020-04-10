@@ -5,7 +5,6 @@ import com.google.gson.JsonPrimitive
 import daikon.HttpServer
 import daikon.gson.Suit.*
 import org.assertj.core.api.Assertions.assertThat
-import org.eclipse.jetty.http.MimeTypes.Type.APPLICATION_JSON_UTF_8
 import org.junit.jupiter.api.Test
 import topinambur.http
 import java.time.LocalDate
@@ -26,7 +25,7 @@ class HttpJsonTest {
             .get("/") { _, res -> res.json(hand) }
             .start().use {
                 val response = "http://localhost:4545/".http.get()
-                assertThat(response.header("Content-Type")).isEqualTo(APPLICATION_JSON_UTF_8.asString())
+                assertThat(response.header("Content-Type")).isEqualTo(APPLICATION_JSON_UTF_8)
                 assertThat(response.body).isEqualTo(expected)
             }
     }
