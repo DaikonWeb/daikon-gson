@@ -9,6 +9,7 @@ import org.junit.jupiter.api.Test
 import topinambur.http
 import java.time.LocalDate
 import java.time.LocalDate.parse
+import java.time.chrono.ChronoLocalDate
 import java.time.format.DateTimeFormatter.ofPattern
 
 class HttpJsonTest {
@@ -45,7 +46,7 @@ class HttpJsonTest {
         HttpServer()
                 .post("/") { req, res ->
                     val dateDeserializer = Deserializer(LocalDate::class) { json: JsonElement, _, _ -> parse(json.asString) }
-                    val dateSerializer = Serializer(LocalDate::class) { date: LocalDate, _, _ -> JsonPrimitive(date.format(ofPattern("dd/MM/yyyy"))) }
+                    val dateSerializer = Serializer(ChronoLocalDate::class) { date: ChronoLocalDate, _, _ -> JsonPrimitive(date.format(ofPattern("dd/MM/yyyy"))) }
 
                     res.json(req.json<Appointment>(dateDeserializer), dateSerializer)
                 }
